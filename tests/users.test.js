@@ -24,10 +24,11 @@ test("sign-in", async () => {
 test("delete-crypto", async () => {
   await request(app)
     .post("/cryptos/add-crypto")
-    .send({ token: "-G4h9fGbaxBIU1UQ-4rCMYZRaJXP4dEc", id: "bitcoin" });
+    .send({ token: "-G4h9fGbaxBIU1UQ-4rCMYZRaJXP4dEc", id: "bitcoin" })
+    .expect(200)
+    .expect({ result: true, message: "Correctly added crypto to db" });
   await request(app)
     .delete("/cryptos/delete-crypto/bitcoin/-G4h9fGbaxBIU1UQ-4rCMYZRaJXP4dEc")
-    // .send({ token: "-G4h9fGbaxBIU1UQ-4rCMYZRaJXP4dEc", id: "bitcoin" })
     .expect(200)
     .expect({
       result: true,
@@ -35,13 +36,9 @@ test("delete-crypto", async () => {
     });
 });
 
-// test("stocks", async () => {
-//   await request(app)
-//     .get("/stocks/-G4h9fGbaxBIU1UQ-4rCMYZRaJXP4dEc/7/false")
-//     // .send({ token: "-G4h9fGbaxBIU1UQ-4rCMYZRaJXP4dEc", id: "bitcoin" })
-//     .expect(200)
-//     .expect({
-//       result: true,
-//       message: "Correctly deleted crypto from db",
-//     });
-// });
+test("stocks", async () => {
+  await request(app).get("/stocks/faketoken/7/false").expect(200).expect({
+    result: false,
+    message: "No user found in db",
+  });
+});

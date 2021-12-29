@@ -60,7 +60,7 @@ router.get("/stocks/:token/:days/:myCryptos", async function (req, res) {
             );
           });
       } else {
-        res.json({ result: false, message: "" });
+        res.json({ result: false, message: "No owned Crypto" });
       }
     } else {
       coinGeckoAPI
