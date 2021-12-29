@@ -60,8 +60,6 @@ router.post(
       // Trouver l'utilisateur grâce à son token
       const user = await userModel.findOne({ token: token });
 
-      // console.log("TYPE QUANTITY", typeof quantity);
-
       // Si un utilisateur est trouvé
       if (user) {
         // Création d'une copie de l'array des transactions de cet utilisateur pour la cryptomonnaie reçue
@@ -72,8 +70,6 @@ router.post(
         let totalQuantity = user.ownedCryptos.find(
           (crypto) => crypto.id === id
         ).totalQuantity;
-
-        // console.log("TOTAL QUANTITY", typeof totalQuantity);
 
         // Création d'une nouvelle transaction
         const newTransaction = new transactionModel({
@@ -199,8 +195,6 @@ router.delete(
           { arrayFilters: [{ "crypto.id": crypto_id }] }
         );
 
-        // console.log(updatedUserTransactions);
-
         res.json({
           result: true,
           message: "Transaction deleted",
@@ -308,7 +302,6 @@ router.put(
         const userCryptoQuantity = user.ownedCryptos.find(
           (crypto) => crypto.id === id
         ).totalQuantity;
-        // console.log(userCryptoQuantity);
 
         // update de la totalQuantity de la crypto impliquer par la transaction
         switch (type) {

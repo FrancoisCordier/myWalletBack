@@ -9,7 +9,7 @@ const coinGeckoAPI = axios.create({
 });
 
 router.get("/stocks/:token/:days/:myCryptos", async function (req, res) {
-  const maxStocks = 5;
+  const maxStocks = 10;
   const user = await userModel.findOne({ token: req.params.token });
 
   const intervalUpdate = [

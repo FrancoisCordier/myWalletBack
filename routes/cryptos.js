@@ -35,14 +35,10 @@ router.get("/list-crypto/:token", async function (req, res) {
         )
       );
 
-      // console.log(buyTransactions);
-
       const totalInvestmentPerCrypto = [];
 
       if (buyTransactions.length > 0 && buyTransactions[0].length > 0) {
         for (let el of buyTransactions) {
-          // console.log(crypto);
-
           if (el.length > 0) {
             const crypto = {
               crypto: el[0].crypto,
@@ -57,7 +53,6 @@ router.get("/list-crypto/:token", async function (req, res) {
 
       if (sellTransactions.length > 0 && sellTransactions[0].length > 0) {
         for (let el of sellTransactions) {
-          // console.log(crypto);
           if (el.length > 0) {
             const cryptoIndex = totalInvestmentPerCrypto.findIndex(
               (crypto) => crypto.crypto === el[0].crypto
@@ -72,9 +67,6 @@ router.get("/list-crypto/:token", async function (req, res) {
           }
         }
       }
-
-      // console.log(buyTransactions);
-      // console.log(totalInvestmentPerCrypto);
 
       coinGeckoAPI
         .get("/simple/price", {
@@ -117,8 +109,6 @@ router.get("/list-crypto/:token", async function (req, res) {
               (crypto) => crypto.id === el.crypto
             );
 
-            console.log(typeof ownedCryptos[index].currentPrice);
-
             const variationInFiat =
               ownedCryptosCopy[index].totalQuantity *
                 ownedCryptosCopy[index].currentPrice -
@@ -132,9 +122,6 @@ router.get("/list-crypto/:token", async function (req, res) {
 
             portfolioVariationInPercent += el.ratio * el.variation * 100;
           }
-
-          console.log(totalInvestmentPerCrypto);
-          console.log(portfolioVariationInPercent);
 
           res.json({
             result: true,
